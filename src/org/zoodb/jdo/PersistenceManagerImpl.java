@@ -33,6 +33,7 @@ import javax.jdo.FetchGroup;
 import javax.jdo.FetchPlan;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalUserException;
+import javax.jdo.JDOHelper;
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.JDOUserException;
 import javax.jdo.ObjectState;
@@ -514,24 +515,45 @@ public class PersistenceManagerImpl implements PersistenceManager {
 	@Override
 	public Set getManagedObjects(EnumSet<ObjectState> arg0) {
         checkOpen();
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
+		HashSet<Object> s = new HashSet<Object>();
+		for (Object o: getManagedObjects()) {
+			if (arg0.contains(JDOHelper.getObjectState(o))) {
+				s.add(o);
+			}
+		}
+		return s;
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Set getManagedObjects(Class... arg0) {
         checkOpen();
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
+		HashSet<Object> s = new HashSet<Object>();
+		for (Object o: getManagedObjects()) {
+			for (Class<?> c: arg0) {
+				if (o.getClass() == c) {
+					s.add(o);
+					break;
+				}
+			}
+		}
+		return s;
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Set getManagedObjects(EnumSet<ObjectState> arg0, Class... arg1) {
         checkOpen();
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
+		HashSet<Object> s = new HashSet<Object>();
+		for (Object o: getManagedObjects(arg0)) {
+			for (Class<?> c: arg1) {
+				if (o.getClass() == c) {
+					s.add(o);
+					break;
+				}
+			}
+		}
+		return s;
 	}
 
 	@Override

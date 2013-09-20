@@ -208,6 +208,9 @@ public class ZooHandleImpl implements ZooHandle {
 	}
 	
 	private void check() {
+		if (!session.isOpen()) {
+			throw new IllegalStateException("Session is closed.");
+		}
 		if (gObj != null && gObj.isDeleted()) {
 			throw new IllegalStateException("Object is deleted.");
 		}
@@ -215,11 +218,13 @@ public class ZooHandleImpl implements ZooHandle {
 
 	@Override
 	public ZooClass getType() {
+		check();
 		return versionProxy;
 	}
 
 	@Override
 	public Object getJavaObject() {
+		check();
 		if (pcObj == null) {
 			if (gObj != null && (gObj.isNew() || gObj.isDirty())) {
         		//TODO  the problem here is the initialisation of the PC, which would require

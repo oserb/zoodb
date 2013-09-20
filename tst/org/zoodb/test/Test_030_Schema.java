@@ -20,11 +20,11 @@
  */
 package org.zoodb.test;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -307,7 +307,7 @@ public class Test_030_Schema {
         try {
             s01.remove();
             fail();
-        } catch (JDOUserException e) {
+        } catch (IllegalStateException e) {
             //good
         }
         assertNull( ZooSchema.locateClass(pm, TestClass.class.getName()) );
@@ -328,7 +328,7 @@ public class Test_030_Schema {
         try {
             s01.remove();
             fail();
-        } catch (JDOUserException e) {
+        } catch (IllegalStateException e) {
             //good
         }
 
@@ -351,7 +351,7 @@ public class Test_030_Schema {
             //remove s02 first
             s01.remove();
             fail();
-        } catch (JDOUserException e) {
+        } catch (IllegalStateException e) {
             //good
         }
         s02.remove();
@@ -376,13 +376,13 @@ public class Test_030_Schema {
         try {
             s01.remove();
             fail();
-        } catch (JDOUserException e) {
+        } catch (IllegalStateException e) {
             //good
         }
         try {
             s02.remove();
             fail();
-        } catch (JDOUserException e) {
+        } catch (IllegalStateException e) {
             //good
         }
         assertNull( ZooSchema.locateClass(pm, TestClassTiny.class.getName()) );
@@ -408,13 +408,13 @@ public class Test_030_Schema {
         try {
             s01.remove();
             fail();
-        } catch (JDOUserException e) {
+        } catch (IllegalStateException e) {
             //good
         }
         try {
             s02.remove();
             fail();
-        } catch (JDOUserException e) {
+        } catch (IllegalStateException e) {
             //good
         }
 
